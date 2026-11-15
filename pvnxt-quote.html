@@ -1,0 +1,312 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>pvNXT Quote</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#069fb1"><meta name="color-scheme" content="light">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* pvNXT Quote portal UI. Tokens and components follow help.pvnxt.com (css/styles.css). */
+:root{--ink:#0b2a30;--ink-2:#3c5459;--teal:#069fb1;--teal-d:#047f8e;--teal-dd:#065f6b;--tint:#eaf3f4;--paper:#f6f9f9;--line:#d6e3e5;--line-2:#a9c3c8;--sun:#e8a13a;--err:#b3261e;--errT:#fcebea;--f-head:'Manrope',sans-serif;--f-body:'Public Sans',sans-serif;--f-mono:'IBM Plex Mono',monospace;color-scheme:light}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font:400 16px/1.55 var(--f-body);-webkit-font-smoothing:antialiased}
+h1,h2,h3,b.h{font-family:var(--f-head);letter-spacing:-.025em;line-height:1.1;font-weight:800}h2{font-size:30px;margin:0}
+.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .in{max-width:1120px;margin:0 auto;padding:0 24px;height:68px;display:flex;align-items:center;justify-content:space-between}
+.hl{font:800 18px var(--f-head);display:flex;gap:12px;align-items:center;color:var(--ink)}.hl span{font-weight:600;font-size:16px;padding-left:12px;border-left:1px solid var(--line-2)}.hl span b{color:var(--teal-dd)}
+main{max-width:1120px;margin:0 auto;padding:32px 24px 96px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 20px;min-height:44px;border-radius:10px;font:700 15px var(--f-head);background:var(--teal-d);color:#fff;border:1.5px solid var(--teal-d);cursor:pointer}.btn:hover{background:var(--ink);border-color:var(--ink)}
+.btn.sm{padding:9px 16px;font-size:14px;min-height:40px}.btn.o{background:transparent;color:var(--ink);border-color:var(--ink)}.btn.o:hover{background:var(--ink);color:#fff}.btn:disabled{opacity:.45;cursor:not-allowed}
+.kp{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0}.kp div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;font:500 12px var(--f-mono);text-transform:uppercase;letter-spacing:.04em;color:var(--ink-2)}.kp b{display:block;font:800 30px var(--f-head);letter-spacing:-.02em;text-transform:none;color:var(--ink);margin-bottom:2px}
+.ch{display:flex;gap:8px;overflow-x:auto;margin-bottom:16px;align-items:center}.ch button{font:500 14px var(--f-body);padding:8px 14px;border-radius:99px;background:#fff;border:1px solid var(--line-2);color:var(--ink);cursor:pointer;white-space:nowrap;min-height:40px}.ch button:hover{border-color:var(--teal);background:var(--tint)}.ch .on{background:var(--ink);color:#fff;border-color:var(--ink)}
+label{display:flex;flex-direction:column;gap:6px;font:600 14px var(--f-head)}
+input,select{font:400 16px var(--f-body);padding:12px 14px;border:1.5px solid var(--line-2);border-radius:10px;background:#fff;color:var(--ink);width:100%;min-height:44px}input:focus,select:focus{outline:3px solid rgba(6,159,177,.35);border-color:var(--teal)}button:focus-visible{outline:3px solid rgba(6,159,177,.35)}
+.ch input{max-width:260px;margin-left:auto}
+.tw{background:#fff;border:1px solid var(--line);border-radius:14px;overflow-x:auto}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:14px 18px;border-bottom:1px solid var(--line);white-space:nowrap}tbody tr:last-child td{border:0}th{font:500 11.5px var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2);background:var(--paper)}tbody tr{cursor:pointer}tbody tr:hover{background:var(--tint)}
+.c{display:inline-block;padding:3px 10px;border-radius:99px;font:500 11.5px var(--f-mono);text-transform:uppercase;letter-spacing:.04em;background:var(--tint);color:var(--teal-dd)}.c.Draft{background:#fff;color:var(--ink-2);border:1px solid var(--line-2)}.c.Viewed{background:#fbe9c8;color:#6b4300}.c.Booked{background:var(--teal-dd);color:#fff}
+.cards{display:none}.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:10px;display:flex;justify-content:space-between;gap:10px;cursor:pointer}
+.sk{background:linear-gradient(90deg,var(--tint),var(--line),var(--tint));background-size:200% 100%;animation:s 1.4s infinite;border-radius:6px;height:16px}@keyframes s{to{background-position:-200% 0}}@media(prefers-reduced-motion:reduce){.sk{animation:none}}
+.ct{padding:56px 24px;background:var(--paper);border:1.5px dashed var(--line-2);border-radius:14px}.ct h3{font-size:24px;margin:0 0 8px}.ct p{max-width:480px;color:var(--ink-2);margin:0 0 20px}
+.ban{background:var(--errT);color:var(--err);border:1px solid var(--err);border-radius:10px;padding:12px 16px;margin-bottom:16px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.lay{display:grid;grid-template-columns:1fr 340px;gap:32px;align-items:start}
+fieldset{background:#fff;border:1px solid var(--line);border-radius:14px;margin:0 0 20px;padding:20px 22px}legend{font:500 12.5px var(--f-mono);text-transform:uppercase;letter-spacing:.04em;color:var(--teal-dd);padding:0 8px}
+.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}label.sw{flex-direction:row;align-items:center;gap:10px;min-height:44px;font:600 14px var(--f-head)}label.sw input{width:20px;min-height:20px;accent-color:var(--teal-d)}
+.sum{position:sticky;top:88px;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 20px}.sum dl{margin:0}.sum div{display:flex;justify-content:space-between;gap:12px;padding:5px 0;font-size:14px;color:var(--ink-2)}.sum div b{color:var(--ink)}.sum .big{border-top:1px solid var(--line-2);margin-top:8px;padding-top:12px;font:800 22px var(--f-head);color:var(--teal-dd)}.sum .neg{color:var(--teal-d)}
+.msg{color:var(--err);font-size:14px;margin:8px 0}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0;position:sticky;top:68px;z-index:5;background:#fff;padding:10px 0}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 20px;border-radius:10px;z-index:60;font:600 14px var(--f-head)}
+.pw{overflow-x:auto;background:var(--paper);padding:24px;border-radius:14px}
+@media(max-width:820px){.lay{grid-template-columns:1fr}.sum{position:static}.tw{display:none}.cards{display:block}.kp b{font-size:18px}}
+</style><style>
+/* A4 proposal pages and print rules. */
+.pg{width:794px;height:1123px;margin:0 auto 24px;background:#fff;color:#0b2a30;padding:40px 44px;position:relative;overflow:hidden;border:1px solid var(--line);font-size:13px}
+.pg h2{margin:0;font-size:24px;color:#0b2a30}.pg .hd{display:flex;justify-content:space-between;border-bottom:1px solid #d6e3e5;padding-bottom:10px;margin-bottom:16px;font-size:12px;color:#3c5459}
+.pg .k4{display:grid;grid-template-columns:repeat(4,1fr);margin:16px 0}.pg .k4 div{padding:0 12px;border-left:1px solid #d6e3e5;font-size:11px;color:#3c5459}.pg .k4 b{display:block;font:800 18px Manrope;color:#0b2a30}
+.pg .two{display:grid;grid-template-columns:1fr 1fr;gap:28px}.pg h4{margin:0 0 6px;font:800 14px Manrope;color:#065f6b}.pg .r{display:flex;justify-content:space-between;gap:12px;padding:5px 0;border-bottom:1px dotted #d6e3e5}.pg .r span{color:#3c5459}.pg .r b{text-align:right}
+.pg table{margin:14px 0}.pg th{background:#eaf3f4;color:#0b2a30;padding:8px 12px}.pg td{padding:8px 12px;white-space:normal;border-color:#d6e3e5}.pg td:last-child{text-align:right}
+.pg .gt{display:flex;justify-content:space-between;align-items:center;border-top:2px solid #065f6b;border-bottom:2px solid #065f6b;padding:14px 0;margin:16px 0}.pg .gt b{font:800 28px Manrope}
+.pg .w{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.pg .w div{background:#eaf3f4;border:1px solid #d6e3e5;border-radius:10px;padding:10px 12px;font-size:11px}.pg .w b{display:block;color:#069fb1;font:800 15px Manrope}
+.pg .ft{position:absolute;left:44px;right:44px;bottom:24px;display:flex;justify-content:space-between;border-top:1px solid #d6e3e5;padding-top:8px;font-size:11px;color:#3c5459}
+.cv{background:linear-gradient(180deg,#fff 0,#eaf3f4 60%,#cfe6ea 100%)}.cv .bdg{display:inline-block;background:#069fb1;color:#fff;font:700 11px Manrope;letter-spacing:.12em;padding:5px 12px;border-radius:5px;margin-top:150px}.cv h1{font:800 72px Manrope;margin:24px 0 6px;color:#0b2a30}.cv .sub{font-size:22px;color:#069fb1}.cv .rule{width:280px;height:6px;background:#047f8e;margin:30px 0}
+.cv .by{position:absolute;left:44px;right:44px;bottom:60px;background:#0b2a30;color:#fff;border-radius:10px;padding:22px 30px;display:grid;grid-template-columns:1fr 1fr;gap:20px}.cv .by small{opacity:.7;letter-spacing:.08em}
+.ms{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;text-align:center;margin:18px 0}.ms i{display:grid;place-items:center;width:84px;height:84px;margin:0 auto 6px;border:3px solid #0b2a30;border-radius:50%;font:800 22px Manrope;font-style:normal}
+.box{background:#eaf3f4;border:1px solid #d6e3e5;border-radius:10px;padding:12px 14px}.pg ul{margin:0;padding-left:18px}.pg li{margin-bottom:4px}
+@page{size:A4;margin:0}@media print{body{background:#fff}.top,.bar,.toast,.noprint{display:none!important}main{padding:0;max-width:none}.pg{margin:0;border:0;page-break-after:always;-webkit-print-color-adjust:exact;print-color-adjust:exact}.pw{overflow:visible}}
+</style></head><body>
+<header class="top"><div class="in"><span class="hl">pvNXT<span><b>Quote</b></span></span><button class="btn sm" id="nq">+ New quote</button></div></header>
+<main id="app"></main>
+<script type="application/json" id="catalog-data">{
+ "epc": {
+  "name": "Astongreens Pvt Ltd",
+  "email": "sales@astongreens.com",
+  "phone": "+91 98765 43210",
+  "bank": {
+   "holder": "Astongreens Pvt Ltd",
+   "no": "50200095983427",
+   "ifsc": "HDFC0001558",
+   "branch": "Janakpuri A3",
+   "type": "Current"
+  }
+ },
+ "gst": 8.9,
+ "modules": [
+  {
+   "id": "av720",
+   "n": "Avaada 720 Wp TOPCon N-Type Bifacial",
+   "b": "Avaada",
+   "wp": 720,
+   "p": 27
+  },
+  {
+   "id": "ad620",
+   "n": "Adani 620 Wp TOPCon N-Type Bifacial",
+   "b": "Adani",
+   "wp": 620,
+   "p": 26
+  },
+  {
+   "id": "wa545",
+   "n": "Waaree 545 Wp Mono PERC",
+   "b": "Waaree",
+   "wp": 545,
+   "p": 24
+  }
+ ],
+ "inverters": [
+  {
+   "id": "l3",
+   "n": "Luminous NXIT130",
+   "kw": 3,
+   "p": 32000
+  },
+  {
+   "id": "s5",
+   "n": "Solis S6-GR1P5K",
+   "kw": 5,
+   "p": 42000
+  },
+  {
+   "id": "s10",
+   "n": "Solis S6-GR3P10K",
+   "kw": 10,
+   "p": 78000
+  },
+  {
+   "id": "s25",
+   "n": "Solis S5-GC25K",
+   "kw": 25,
+   "p": 150000
+  }
+ ],
+ "structures": [
+  {
+   "id": "std",
+   "n": "Standard, Apollo Pre-GI",
+   "p": 6500
+  },
+  {
+   "id": "el",
+   "n": "Elevated, Apollo Pre-GI",
+   "p": 8500
+  },
+  {
+   "id": "hdg",
+   "n": "Elevated, HDG",
+   "p": 10500
+  }
+ ],
+ "dc": [
+  {
+   "id": "h4",
+   "n": "Havells 1C 4 sq mm Tinned Copper",
+   "p": 55
+  }
+ ],
+ "ac": [
+  {
+   "id": "a6",
+   "n": "Havells 2C 6 sq mm armoured Al",
+   "p": 120
+  },
+  {
+   "id": "a10",
+   "n": "Havells 4C 10 sq mm armoured Al",
+   "p": 210
+  }
+ ],
+ "earth": {
+  "pit": 4500,
+  "la": 6500
+ },
+ "battery": {
+  "n": "Lithium 48V battery bank",
+  "p": 22000
+ },
+ "clean": {
+  "n": "Waterless panel cleaning system",
+  "p": 3000
+ },
+ "inst": 9000,
+ "states": {
+  "Delhi": {
+   "tariff": 6.5,
+   "sub": 0,
+   "d": [
+    "BSES Rajdhani",
+    "BSES Yamuna",
+    "TPDDL"
+   ]
+  },
+  "Haryana": {
+   "tariff": 6.8,
+   "sub": 0,
+   "d": [
+    "DHBVN",
+    "UHBVN"
+   ]
+  },
+  "Uttar Pradesh": {
+   "tariff": 6.5,
+   "sub": 0,
+   "d": [
+    "UPPCL Urban",
+    "UPPCL Rural"
+   ]
+  },
+  "Rajasthan": {
+   "tariff": 7,
+   "sub": 0,
+   "d": [
+    "JVVNL",
+    "AVVNL",
+    "JdVVNL"
+   ]
+  }
+ }
+}</script>
+<script type="application/json" id="quotes-data">[
+ {
+  "id": "QUT-1010",
+  "name": "Varun Pandey",
+  "state": "Haryana",
+  "kwp": 2.88,
+  "modules": 4,
+  "status": "Booked"
+ },
+ {
+  "id": "QUT-1011",
+  "name": "Anita Rao",
+  "state": "Uttar Pradesh",
+  "kwp": 3.24,
+  "modules": 6,
+  "mod": "ad620",
+  "status": "Viewed"
+ },
+ {
+  "id": "QUT-1012",
+  "name": "Sahil Jain",
+  "state": "Delhi",
+  "kwp": 5.04,
+  "modules": 7,
+  "inv": "s5",
+  "status": "Sent"
+ }
+]</script>
+<script>
+/* Data layer. Replace each method with the real API call; nothing else in the app talks to the network. */
+let C;const H=location.hash,DB=[];
+/* The single-file build embeds the JSON as <script type="application/json"> blocks; served folders use fetch. */
+const inline=id=>{const e=document.getElementById(id);return e?Promise.resolve(JSON.parse(e.textContent)):null};
+const api={
+  catalog:()=>inline('catalog-data')||fetch('data/catalog.json').then(r=>r.json()),
+  list:async()=>{await new Promise(r=>setTimeout(r,700));if(H.includes('error'))throw 0;if(H.includes('empty'))return[];
+    if(!DB.length){const r=await(inline('quotes-data')||fetch('data/quotes.json').then(x=>x.json()));DB.push(...r.map(x=>newQ(x)))}return DB},
+  save:q=>{if(!DB.includes(q))DB.unshift(q)},
+  email:q=>Promise.resolve(),
+  shareUrl:q=>'https://quote.pvnxt.com/q/'+q.id,
+  payUrl:q=>'https://pay.pvnxt.com/'+q.id};
+</script><script>
+/* Formatting helpers, price and subsidy maths, validation. */
+const R=n=>'₹'+Math.round(n||0).toLocaleString('en-IN'),by=(a,i)=>a.find(x=>x.id==i)||a[0],tx=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function calc(q){const m=by(C.modules,q.mod),i=by(C.inverters,q.inv),n=+q.modules||0,k=n*m.wp/1000;
+const parts=[['Solar modules',n*m.wp*m.p],['Inverter',i.p],['Structure',k*by(C.structures,q.struct).p],['DC cable',q.dc*by(C.dc,q.dcc).p],['AC cable',q.ac*by(C.ac,q.acc).p],['Earthing & LA',q.pits*C.earth.pit+q.la*C.earth.la],['Installation & commissioning',k*C.inst]];
+if(q.battery)parts.push(['Battery',q.batKwh*C.battery.p]);if(q.clean)parts.push(['Cleaning system',k*C.clean.p]);
+const auto=parts.reduce((a,p)=>a+p[1],0),list=q.over!==''?+q.over:auto,net=list-q.disc+ +q.addon,gst=net*C.gst/100,total=net+gst;
+const kw=Math.min(k,3),cs=q.csub&&q.consumer=='Domestic'&&q.type!='Off-Grid'?Math.min(78000,30000*Math.min(kw,2)+18000*Math.max(0,kw-2)):0,
+cost=total-cs-q.ssub,gen=k*120,mon=Math.min(gen,q.units)*q.tariff,pb=mon?cost/(mon*12):0;
+return{m,i,k,parts,list,net,gst,total,cs,cost,mon,pb}}
+const bad=q=>!q.name.trim()?'Customer name is required':!/^[+\d\s-]{10,}$/.test(q.phone)?'Enter a valid phone number':!(q.modules>0)?'Add at least one module':q.ms.reduce((a,b)=>a+ +b,0)!=100?'Milestones must total 100%':'';
+</script><script>
+/* Views: list, form, proposal preview, share actions. */
+const $=document.getElementById('app');
+const newQ=(o={})=>({id:'QUT-'+(1013+DB.length),status:'Draft',date:new Date().toISOString().slice(0,10),name:'',phone:'',email:'',addr:'',state:'Delhi',discom:'',consumer:'Domestic',units:400,load:'',tariff:6.5,type:'On-Grid',kwp:3,mod:'av720',modules:5,inv:'l3',struct:'std',dc:21,dcc:'h4',ac:35,acc:'a6',pits:3,la:1,battery:false,batKwh:5,clean:false,disc:0,addon:0,over:'',ssub:0,csub:true,ms:[10,60,20,10],pay:true,...o});
+let L=[],f='All',srch='',Q,V='list';
+function toast(t){const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.append(d);setTimeout(()=>d.remove(),2200)}
+async function list(){V='list';$.innerHTML=`<h2 style="margin:0">Quotes</h2><div class="tw" style="margin-top:14px;padding:14px">${[1,2,3,4,5].map(()=>'<div class="sk" style="margin:14px 0"></div>').join('')}</div>`;
+try{L=await api.list();drawList()}catch(e){$.innerHTML=`<div class="ban"><span>Couldn’t load quotes. Check your connection.</span><button class="btn o" onclick="list()">Retry</button></div>`}}
+function drawList(){const rows=L.filter(q=>(f=='All'||q.status==f)&&(q.name+q.id).toLowerCase().includes(srch.toLowerCase())),cs=L.map(calc);
+if(!L.length){$.innerHTML=`<div class="ct"><h3>No quotes yet</h3><p>Your price list is already loaded, so a new quote needs only the customer and plant size. Share it by link or PDF when it is ready.</p><button class="btn" onclick="open_()">+ New quote</button></div>`;return}
+const aw=L.filter(q=>q.status=='Sent'||q.status=='Viewed').reduce((a,q)=>a+calc(q).total*q.ms[0]/100,0);
+$.innerHTML=`<h2 style="margin:0">Quotes</h2><div class="kp"><div><b>${R(aw)}</b>Booking amount awaiting</div><div><b>${L.filter(q=>q.status=='Viewed').length}</b>Viewed, not paid</div><div><b>${L.filter(q=>q.status=='Booked').length}</b>Booked</div></div>
+<div class="ch">${['All','Draft','Sent','Viewed','Booked'].map(s=>`<button class="${s==f?'on':''}" onclick="f='${s}';drawList()">${s}</button>`).join('')}<input id="s" placeholder="Search name or ID" value="${tx(srch)}" aria-label="Search"></div>
+${rows.length?`<div class="tw"><table><thead><tr><th>ID</th><th>Customer</th><th>State</th><th>Size</th><th>Total</th><th>Status</th></tr></thead><tbody>${rows.map(q=>{const c=calc(q);return`<tr onclick="show('${q.id}')"><td>${q.id}</td><td>${tx(q.name)}</td><td>${q.state}</td><td>${c.k.toFixed(2)} kWp</td><td>${R(c.total)}</td><td><span class="c ${q.status}">${q.status}</span></td></tr>`}).join('')}</tbody></table></div>
+<div class="cards">${rows.map(q=>{const c=calc(q);return`<div class="card" onclick="show('${q.id}')"><div><b>${tx(q.name)}</b><br>${q.state} · ${c.k.toFixed(2)} kWp</div><div style="text-align:right">${R(c.total)}<br><span class="c ${q.status}">${q.status}</span></div></div>`}).join('')}</div>`:'<div class="ct">No quotes match.</div>'}`;
+const s=document.getElementById('s');s.oninput=e=>{srch=e.target.value;const p=e.target.selectionStart;drawList();const n=document.getElementById('s');n.focus();n.setSelectionRange(p,p)}}
+const FS=[['Customer & site',[['Customer name','name','t'],['Phone','phone','t'],['Email','email','t'],['Site address','addr','t'],['State','state','s',()=>Object.keys(C.states)],['DISCOM','discom','s',q=>C.states[q.state].d],['Consumer type','consumer','s',()=>['Domestic','Commercial','Industrial']],['Avg monthly units','units','n'],['Sanctioned load (kW)','load','n'],['Tariff (₹/unit)','tariff','n']]],
+['System',[['System type','type','s',()=>['On-Grid','Off-Grid','Hybrid']],['Target size (kWp)','kwp','n'],['Module','mod','s',()=>C.modules.map(m=>[m.id,m.n])],['No. of modules','modules','n'],['Inverter','inv','s',()=>C.inverters.map(m=>[m.id,m.n+' ('+m.kw+' kW)'])],['Structure','struct','s',()=>C.structures.map(m=>[m.id,m.n])],['Battery backup','battery','c'],['Battery (kWh)','batKwh','n',,q=>q.battery],['Panel cleaning system','clean','c']]],
+['Cables, earthing & LA',[['DC cable','dcc','s',()=>C.dc.map(m=>[m.id,m.n])],['DC length (m)','dc','n'],['AC cable','acc','s',()=>C.ac.map(m=>[m.id,m.n])],['AC length (m)','ac','n'],['Earth pits','pits','n'],['Lightning arresters','la','n']]],
+['Pricing & subsidy',[['List price override (₹)','over','n'],['Discount (₹)','disc','n'],['Add-on charges (₹)','addon','n'],['Central subsidy (PM Surya Ghar)','csub','c'],['State subsidy (₹)','ssub','n']]]];
+function fld(q,[l,k,t,o,sh]){if(sh&&!sh(q))return'';const v=q[k];if(t=='c')return`<label class="sw"><input type="checkbox" data-k="${k}" ${v?'checked':''}>${l}</label>`;
+if(t=='s')return`<label>${l}<select data-k="${k}" data-r="1">${k=='discom'?'<option value="">Select</option>':''}${o(q).map(x=>{const[a,b]=Array.isArray(x)?x:[x,x];return`<option value="${tx(a)}" ${a==v?'selected':''}>${tx(b)}</option>`}).join('')}</select></label>`;
+return`<label>${l}<input data-k="${k}" type="${t=='n'?'number':'text'}" ${t=='n'?'step="any" min="0" inputmode="decimal"':''} value="${tx(v)}"></label>`}
+function sumHTML(q){const c=calc(q),e=bad(q);return`<dl>${c.parts.map(p=>`<div><span>${p[0]}</span><span>${R(p[1])}</span></div>`).join('')}<div><span>List price${q.over!==''?' (override)':''}</span><b>${R(c.list)}</b></div><div><span>GST ${C.gst}%</span><span>${R(c.gst)}</span></div><div><span>Total</span><b>${R(c.total)}</b></div><div class="neg"><span>Central subsidy</span><span>− ${R(c.cs)}</span></div><div class="neg"><span>State subsidy</span><span>− ${R(q.ssub)}</span></div><div class="big"><span>Net cost</span><span>${R(c.cost)}</span></div></dl><p style="font-size:13px;color:var(--ink2)">${c.k.toFixed(2)} kWp · saves ${R(c.mon)}/month · payback ${c.pb.toFixed(1)} yrs</p>${e?`<div class="msg">${e}</div>`:''}<button class="btn" style="width:100%" ${e?'disabled':''} onclick="pre()">Preview proposal</button>`}
+function auto(q,k){if(k=='kwp'||k=='mod'){const w=by(C.modules,q.mod).wp;if(k=='kwp')q.modules=Math.max(1,Math.ceil(q.kwp*1000/w));else q.modules=Math.ceil(q.kwp*1000/w);const kk=q.modules*w/1000;q.inv=(C.inverters.find(i=>i.kw>=kk*.9)||C.inverters.at(-1)).id;q.dc=Math.max(20,Math.round(kk*7))}
+if(k=='modules'){q.kwp=+(q.modules*by(C.modules,q.mod).wp/1000).toFixed(2)}
+if(k=='state'){q.discom='';q.tariff=C.states[q.state].tariff;q.ssub=C.states[q.state].sub}}
+function open_(q){Q=q||newQ({tariff:6.5});V="form";drawForm()}
+function drawForm(){const y=scrollY;$.innerHTML=`<button class="btn o" onclick="list()">← Quotes</button><h2>${Q.id}: new quote</h2><p style="color:var(--ink2);margin-top:-8px">Prices come from your catalog. Auto-filled values are editable.</p><div class="lay"><div id="fm">${FS.map(([t,fs])=>`<fieldset><legend>${t}</legend><div class="g">${fs.map(x=>fld(Q,x)).join('')}</div></fieldset>`).join('')}
+<fieldset><legend>Payment milestones (%)</legend><div class="g">${['On booking','Before supply','Post installation','After net-metering'].map((l,i)=>`<label>${l}<input type="number" data-m="${i}" min="0" value="${Q.ms[i]}"></label>`).join('')}<label class="sw"><input type="checkbox" data-k="pay" ${Q.pay?'checked':''}>Include online payment link</label></div></fieldset></div><aside class="sum" id="sm">${sumHTML(Q)}</aside></div>`;
+const fm=document.getElementById('fm'),up=()=>document.getElementById('sm').innerHTML=sumHTML(Q);
+fm.oninput=e=>{const t=e.target,k=t.dataset.k;if(t.dataset.m){Q.ms[t.dataset.m]=+t.value;up();return}if(!k||t.dataset.r||t.type=='checkbox')return;Q[k]=t.type=='number'&&t.value!==''?+t.value:t.value;if(['kwp','modules'].includes(k)){auto(Q,k);['modules','kwp','inv','dc'].forEach(x=>{if(x!=k){const el=fm.querySelector(`[data-k=${x}]`);if(el)el.value=Q[x]}})}up()};
+fm.onchange=e=>{const t=e.target,k=t.dataset.k;if(!k||(t.type!='checkbox'&&!t.dataset.r))return;Q[k]=t.type=='checkbox'?t.checked:t.value;auto(Q,k);drawForm();scrollTo(0,y)};scrollTo(0,0)}
+function show(id){Q=DB.find(q=>q.id==id);pre()}
+function pre(){V='pre';const q=Q,c=calc(q),e=bad(q),ep=C.epc,dt=new Date(q.date),fd=d=>d.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}),vt=new Date(dt.getTime()+15*864e5),ms=['On booking','Before supply','Post installation','After net-metering'],
+w=[['Solar modules','25 yr product'],['Inverter','10 yr product'],['Mounting structure','10 yr product'],['Balance of system','5 yr product']],
+inc=['Solar panels, inverter, structure and BOS','Standard AC/DC wiring, ACDB/DCDB and protection','Earthing and lightning arrester as per design','Installation and commissioning','Subsidy and net-metering documentation support','Basic customer training after installation',...(q.battery?['Battery bank '+q.batKwh+' kWh']:[]),...(q.clean?['Panel cleaning system']:[])],
+exc=['Extra structure height / customised structure','RCC civil, waterproofing or roof repair','Meter shifting / electrical panel modification','Extra cable beyond standard lengths','Crane, lift or special material shifting','DISCOM / government charges',...(q.battery?[]:['Battery backup unless specifically quoted']),'Inverter sheds'],
+hdr=`<div class="hd"><b>${tx(ep.name)}</b><span>${c.k.toFixed(2)} kWp · ${q.consumer}</span><span>Quotation ${q.id}</span></div>`,ft=n=>`<div class="ft"><span>${fd(dt)} · valid 15 days</span><span>${n} of 3</span><span>pvNXT Studio</span></div>`;
+$.innerHTML=`<div class="bar noprint"><button class="btn o" onclick="drawForm()">← Edit</button><button class="btn" onclick="window.print()">Download PDF</button><button class="btn o" id="wa">WhatsApp</button><button class="btn o" id="em">Email</button><button class="btn o" id="cp">Copy link</button></div><div class="pw">
+<section class="pg cv"><div style="display:flex;justify-content:space-between"><b class="h" style="font-size:20px">${tx(ep.name)}</b><b class="h">Generated by pvNXT Studio</b></div><span class="bdg">V1.0 · 01 OF 03</span><h1>QUOTATION</h1><div class="sub">${q.type} · ${tx(q.name)}</div><div class="rule"></div><b class="h" style="font-size:15px">${q.id} &nbsp;·&nbsp; ${c.k.toFixed(2)} kWp &nbsp;·&nbsp; ${fd(dt)} &nbsp;·&nbsp; ${q.consumer}</b>
+<div class="by"><div><small>PREPARED FOR</small><br><b class="h" style="font-size:17px">${tx(q.name)}</b><br>${tx(q.email)} ${tx(q.phone)}</div><div><small>PREPARED BY</small><br><b class="h" style="font-size:17px">${tx(ep.name)}</b><br>${ep.email} · ${ep.phone}</div></div></section>
+<section class="pg">${hdr}<h2>Rooftop Solar Quotation</h2><p style="color:#3c5459">${c.k.toFixed(2)} kWp ${q.type.toLowerCase()} plant at ${tx(q.addr||q.state)}</p><div class="k4"><div>PLANT SIZE<b>${c.k.toFixed(2)} kWp</b>${q.modules} modules</div><div>PAYBACK<b>${Math.floor(c.pb)} yr ${Math.round(c.pb%1*12)} mo</b>then free for 20+ yrs</div><div>DISCOM<b>${tx(q.discom||'Not set')}</b>${q.consumer}</div><div>MONTHLY SAVING<b>${R(c.mon)}</b>at ₹${q.tariff}/unit</div></div>
+<div class="two"><div><h4>Quotation details</h4><div class="r"><span>File</span><b>${q.id}</b></div><div class="r"><span>Issued / valid till</span><b>${fd(dt)} / ${fd(vt)}</b></div><div class="r"><span>EPC</span><b>${tx(ep.name)}</b></div></div><div><h4>Site</h4><div class="r"><span>State</span><b>${q.state}</b></div><div class="r"><span>Sanctioned load</span><b>${q.load?q.load+' kW':'Not set'}</b></div><div class="r"><span>Type</span><b>${q.type}</b></div></div></div>
+<table><tr><th>ITEM</th><th>VALUE</th></tr><tr><td>Module</td><td>${q.modules} × ${c.m.n}</td></tr><tr><td>Inverter</td><td>${c.i.n} (${c.i.kw} kW AC)</td></tr><tr><td>Structure</td><td>${by(C.structures,q.struct).n}</td></tr><tr><td>DC cable</td><td>${by(C.dc,q.dcc).n} · ${q.dc} m</td></tr><tr><td>AC cable</td><td>${by(C.ac,q.acc).n} · ${q.ac} m</td></tr><tr><td>Earthing & LA</td><td>${q.pits} earth pits · ${q.la} lightning arrester</td></tr>${q.battery?`<tr><td>Battery</td><td>${q.batKwh} kWh</td></tr>`:''}</table>
+<div class="r"><span>Net before tax</span><b>${R(c.net)}</b></div><div class="r"><span>GST ${C.gst}%</span><b>${R(c.gst)}</b></div><div class="r"><span>Central subsidy</span><b>− ${R(c.cs)}</b></div><div class="r"><span>State subsidy</span><b>− ${R(q.ssub)}</b></div>
+<div class="gt"><div>GRAND TOTAL<br><small>Inclusive of all applicable taxes</small></div><b>${R(c.total)}</b></div><div class="gt" style="margin-top:0"><div>NET COST AFTER SUBSIDY</div><b style="color:#047f8e">${R(c.cost)}</b></div><div class="w">${w.map(x=>`<div>${x[0]}<b>${x[1]}</b></div>`).join('')}</div>${ft(2)}</section>
+<section class="pg">${hdr}<h2>Warranty and terms</h2><div class="ms">${q.ms.map((p,i)=>`<div><i>${p}%</i><b class="h" style="font-size:11px;color:#047f8e">MILESTONE ${i+1}</b><br>${ms[i]}<br><b class="h" style="font-size:16px">${R(c.total*p/100)}</b></div>`).join('')}</div>
+${q.pay?`<div class="box" style="margin-bottom:14px"><b class="h">Pay securely online</b><br>Booking amount ${R(c.total*q.ms[0]/100)}: <a href="${api.payUrl(q)}">${api.payUrl(q)}</a></div>`:''}
+<div class="two"><div class="box"><h4>Documents required</h4><ul>${['Latest electricity bill','Aadhaar card','PAN card','Cancelled cheque / passbook','Property proof (loan cases)','Mobile and email updated on the bill'].map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="box"><h4>Bank account details</h4>${Object.entries({'Account holder':ep.bank.holder,'Account number':ep.bank.no,'IFSC':ep.bank.ifsc,'Branch':ep.bank.branch,'Type':ep.bank.type}).map(([a,b])=>`<div class="r"><span>${a}</span><b>${b}</b></div>`).join('')}</div></div>
+<div class="two" style="margin-top:16px"><div><h4 style="color:#1a7f37">Included</h4><ul>${inc.map(x=>`<li>${x}</li>`).join('')}</ul></div><div><h4 style="color:#b3261e">Not included</h4><ul>${exc.map(x=>`<li>${x}</li>`).join('')}</ul></div></div>
+<p class="box" style="margin-top:16px;font-size:12px">Indicative timeline. Steps after commissioning depend on DISCOM and government processing, which ${tx(ep.name)} assists with but does not control. Where the purchase is financed, payment follows the bank’s schedule. Savings are estimates from expected generation and your tariff.</p>${ft(3)}</section></div>`;
+const url=api.shareUrl(q),sent=()=>{if(q.status=='Draft')q.status='Sent';api.save(q)};
+document.getElementById('wa').onclick=()=>{if(e)return toast(e);sent();const t=`Hi ${q.name}, your solar quotation ${q.id} (${R(c.total)}, net ${R(c.cost)} after subsidy): ${url}`;navigator.share?navigator.share({text:t}).catch(()=>{}):open('https://wa.me/?text='+encodeURIComponent(t))};
+document.getElementById('em').onclick=async()=>{if(e)return toast(e);sent();await api.email(q);toast('Email action called')};
+document.getElementById('cp').onclick=()=>{if(e)return toast(e);sent();navigator.clipboard?.writeText(url);toast('Link copied')};scrollTo(0,0)}
+document.getElementById('nq').onclick=()=>open_();
+api.catalog().then(c=>{C=c;list()}).catch(()=>{$.innerHTML='<div class="ban"><span>Could not load data/catalog.json. Serve this folder over http, see README.</span></div>'});
+</script></body></html>
