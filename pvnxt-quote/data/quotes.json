@@ -1,0 +1,28 @@
+[
+ {
+  "id": "QUT-1010",
+  "name": "Varun Pandey",
+  "state": "Haryana",
+  "kwp": 2.88,
+  "modules": 4,
+  "status": "Booked"
+ },
+ {
+  "id": "QUT-1011",
+  "name": "Anita Rao",
+  "state": "Uttar Pradesh",
+  "kwp": 3.24,
+  "modules": 6,
+  "mod": "ad620",
+  "status": "Viewed"
+ },
+ {
+  "id": "QUT-1012",
+  "name": "Sahil Jain",
+  "state": "Delhi",
+  "kwp": 5.04,
+  "modules": 7,
+  "inv": "s5",
+  "status": "Sent"
+ }
+]

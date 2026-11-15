@@ -1,0 +1,149 @@
+{
+ "epc": {
+  "name": "Astongreens Pvt Ltd",
+  "email": "sales@astongreens.com",
+  "phone": "+91 98765 43210",
+  "bank": {
+   "holder": "Astongreens Pvt Ltd",
+   "no": "50200095983427",
+   "ifsc": "HDFC0001558",
+   "branch": "Janakpuri A3",
+   "type": "Current"
+  }
+ },
+ "gst": 8.9,
+ "modules": [
+  {
+   "id": "av720",
+   "n": "Avaada 720 Wp TOPCon N-Type Bifacial",
+   "b": "Avaada",
+   "wp": 720,
+   "p": 27
+  },
+  {
+   "id": "ad620",
+   "n": "Adani 620 Wp TOPCon N-Type Bifacial",
+   "b": "Adani",
+   "wp": 620,
+   "p": 26
+  },
+  {
+   "id": "wa545",
+   "n": "Waaree 545 Wp Mono PERC",
+   "b": "Waaree",
+   "wp": 545,
+   "p": 24
+  }
+ ],
+ "inverters": [
+  {
+   "id": "l3",
+   "n": "Luminous NXIT130",
+   "kw": 3,
+   "p": 32000
+  },
+  {
+   "id": "s5",
+   "n": "Solis S6-GR1P5K",
+   "kw": 5,
+   "p": 42000
+  },
+  {
+   "id": "s10",
+   "n": "Solis S6-GR3P10K",
+   "kw": 10,
+   "p": 78000
+  },
+  {
+   "id": "s25",
+   "n": "Solis S5-GC25K",
+   "kw": 25,
+   "p": 150000
+  }
+ ],
+ "structures": [
+  {
+   "id": "std",
+   "n": "Standard, Apollo Pre-GI",
+   "p": 6500
+  },
+  {
+   "id": "el",
+   "n": "Elevated, Apollo Pre-GI",
+   "p": 8500
+  },
+  {
+   "id": "hdg",
+   "n": "Elevated, HDG",
+   "p": 10500
+  }
+ ],
+ "dc": [
+  {
+   "id": "h4",
+   "n": "Havells 1C 4 sq mm Tinned Copper",
+   "p": 55
+  }
+ ],
+ "ac": [
+  {
+   "id": "a6",
+   "n": "Havells 2C 6 sq mm armoured Al",
+   "p": 120
+  },
+  {
+   "id": "a10",
+   "n": "Havells 4C 10 sq mm armoured Al",
+   "p": 210
+  }
+ ],
+ "earth": {
+  "pit": 4500,
+  "la": 6500
+ },
+ "battery": {
+  "n": "Lithium 48V battery bank",
+  "p": 22000
+ },
+ "clean": {
+  "n": "Waterless panel cleaning system",
+  "p": 3000
+ },
+ "inst": 9000,
+ "states": {
+  "Delhi": {
+   "tariff": 6.5,
+   "sub": 0,
+   "d": [
+    "BSES Rajdhani",
+    "BSES Yamuna",
+    "TPDDL"
+   ]
+  },
+  "Haryana": {
+   "tariff": 6.8,
+   "sub": 0,
+   "d": [
+    "DHBVN",
+    "UHBVN"
+   ]
+  },
+  "Uttar Pradesh": {
+   "tariff": 6.5,
+   "sub": 0,
+   "d": [
+    "UPPCL Urban",
+    "UPPCL Rural"
+   ]
+  },
+  "Rajasthan": {
+   "tariff": 7,
+   "sub": 0,
+   "d": [
+    "JVVNL",
+    "AVVNL",
+    "JdVVNL"
+   ]
+  }
+ }
+}
